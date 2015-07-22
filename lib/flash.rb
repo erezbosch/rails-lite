@@ -1,4 +1,5 @@
 require 'json'
+require 'webrick'
 
 class Flash
   def initialize(req)
