@@ -23,11 +23,8 @@ class Flash
   end
 
   def []=(key, val)
-    puts "@delete is #{@delete}"
-    puts "#{key} #{val}"
     @flash[key] = val
     @delete.delete(key)
-    puts "Deleted key #{key} from @delete which is #{@delete}"
   end
 
   def now
@@ -38,14 +35,15 @@ class Flash
   # empty it into flash_now; old flash_now is removed in this process
   def store_session(res)
     @flash_now = nil
-    puts "Flash is #{@flash}"
     @flash = @flash.delete_if { |k, v| @delete.include?(k) }
-    puts "Flash is #{@flash}"
     @delete = @flash.keys
-    puts "@delete is #{@delete}"
-    res.cookies << WEBrick::Cookie.new("flash", @flash.to_json)
-    res.cookies <<
+    
+    [
+      WEBrick::Cookie.new("flash", @flash.to_json),
       WEBrick::Cookie.new("delete", @delete.to_json)
+    ].each do |cookie|
+      res.cookies << cookie
+    end
   end
 end
 
