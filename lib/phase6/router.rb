@@ -19,7 +19,9 @@ module Phase6
       route_params = match_data.names.each_with_object({}) do |key, hash|
         hash[key] = match_data[key]
       end
-      controller_class.new(req, res, route_params).invoke_action(action_name)
+      controller = controller_class.new(req, res, route_params)
+      controller.protect_from_forgery if http_method != :get
+      controller.invoke_action(action_name)
     end
   end
 
@@ -57,14 +59,13 @@ module Phase6
           return route
         end
       end
-
       nil
     end
 
     # either throw 404 or call run on a matched route
     def run(req, res)
-      match_route = match(req)
-      match_route ? match_route.run(req, res) : res.status = 404
+      matching_route = match(req)
+      matching_route ? matching_route.run(req, res) : res.status = 404
     end
   end
 end
