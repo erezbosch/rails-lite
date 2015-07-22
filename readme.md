@@ -8,6 +8,7 @@ redirect_to, render_content overwritten to include Session and Flash cookies
 Session and Flash accessors
 ## Phase5:
 attr_reader for params, initialize overwritten to include params hash
+CSRF protection
 Params class
 ## Phase6:
 invoke_action(name)
@@ -15,3 +16,7 @@ Router class
 Route class
 ## Flash:
 Flash class, FlashNow class
+
+# Bin files
+## flash_test_server - tests flash/.now
+## p05_params_server - tests auth

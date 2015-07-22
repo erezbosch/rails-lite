@@ -59,7 +59,9 @@ server.mount_proc('/') do |req, res|
   when ['GET', '/cats']
     CatsController.new(req, res, {}).index
   when ['POST', '/cats']
-    CatsController.new(req, res, {}).create
+    cats_controller = CatsController.new(req, res, {})
+    cats_controller.protect_from_forgery
+    cats_controller.create
   when ['GET', '/cats/new']
     CatsController.new(req, res, {}).new
   end
