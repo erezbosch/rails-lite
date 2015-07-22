@@ -1,6 +1,5 @@
 require 'json'
 require 'webrick'
-require 'byebug'
 
 module Phase4
   class Session
