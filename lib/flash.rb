@@ -3,20 +3,31 @@ require 'json'
 class Flash
   def initialize(req)
     req.cookies.each do |cookie|
-      if cookie.name == "_rails_lite_app"
+      if cookie.name == "flash"
         @flash = cookie.value == "" ? {} : JSON.parse(cookie.value)
-        return
+      elsif cookie.name == "delete"
+        @delete = cookie.value == "" ? [] : JSON.parse(cookie.value)
       end
     end
-    @flash = {}
+
+    @flash ||= {}
+    @delete ||= []
   end
 
   def [](key)
-    @flash[key] || now[key]
+    if now[key] && @flash[key]
+      [now[key], @flash[key]]
+    else
+      @flash[key] || now[key]
+    end
   end
 
   def []=(key, val)
+    puts "@delete is #{@delete}"
+    puts "#{key} #{val}"
     @flash[key] = val
+    @delete.delete(key)
+    puts "Deleted key #{key} from @delete which is #{@delete}"
   end
 
   def now
@@ -26,10 +37,15 @@ class Flash
   # When an HTML request is made: add the flash to cookies and
   # empty it into flash_now; old flash_now is removed in this process
   def store_session(res)
-    current_flash = @flash.merge(now.flash_now)
-    res.cookies << WEBrick::Cookie.new("flash", current_flash.to_json)
-    @flash_now = FlashNow.new(@flash)
-    @flash = {}
+    @flash_now = nil
+    puts "Flash is #{@flash}"
+    @flash = @flash.delete_if { |k, v| @delete.include?(k) }
+    puts "Flash is #{@flash}"
+    @delete = @flash.keys
+    puts "@delete is #{@delete}"
+    res.cookies << WEBrick::Cookie.new("flash", @flash.to_json)
+    res.cookies <<
+      WEBrick::Cookie.new("delete", @delete.to_json)
   end
 end
 
