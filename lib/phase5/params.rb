@@ -44,7 +44,7 @@ module Phase5
         keys = parse_key(key)
         current_hash = query_hash
         keys[0..-2].each do |key|
-          current_hash[key] = {} unless current_hash.has_key?(key)
+          current_hash[key] ||= {}
           current_hash = current_hash[key]
         end
         current_hash[keys.last] = value

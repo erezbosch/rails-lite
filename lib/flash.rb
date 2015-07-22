@@ -31,13 +31,11 @@ class Flash
     @flash_now ||= FlashNow.new
   end
 
-  # When an HTML request is made: add the flash to cookies and
-  # empty it into flash_now; old flash_now is removed in this process
   def store_session(res)
     @flash_now = nil
     @flash = @flash.delete_if { |k, v| @delete.include?(k) }
     @delete = @flash.keys
-    
+
     [
       WEBrick::Cookie.new("flash", @flash.to_json),
       WEBrick::Cookie.new("delete", @delete.to_json)
@@ -48,7 +46,6 @@ class Flash
 end
 
 class FlashNow
-  attr_reader :flash_now
   def initialize(hash = {})
     @flash_now = hash
   end
