@@ -1,8 +1,8 @@
 require 'active_support'
 require 'active_support/core_ext'
 require 'webrick'
-require_relative '../lib/controller_base'
-require_relative '../lib/router'
+require_relative '../controller_logic/controller_base'
+require_relative '../controller_logic/router'
 
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick.html
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick/HTTPRequest.html

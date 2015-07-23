@@ -8,7 +8,14 @@
   </label>
 
   <label>Owner
-    <input type="text" name="cat[owner]" value="<%= @cat.owner %>">
+    <select name="cat[owner_id]">
+      <% Human.all.each do |human| %>
+        <option value=<%= human.id %>
+          <%= "selected" if human.id == @cat.owner.id if @cat.owner%>>
+          <%= human.fname %>
+        </option>
+      <% end %>
+    </select>
   </label>
 
   <input type="submit">
