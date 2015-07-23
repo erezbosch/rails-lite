@@ -1,7 +1,7 @@
 <h1>ALL THE CATS</h1>
 <% @cats.each do |cat| %>
   <p>
-    <%= cat.name %>
+    <a href="/cats/<%= cat.id %>"><%= cat.name %></a>
     <% if cat.owner %>
       <%= " is owned by #{cat.owner.fname} #{cat.owner.lname}" %>
     <% else %>
