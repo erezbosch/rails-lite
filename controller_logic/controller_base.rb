@@ -78,7 +78,7 @@ class ControllerBase
     params_token = params["authenticity_token"]
     session_token = session["authenticity_token"]
     unless session_token && params_token == session_token
-      #raise "INVALID AUTHENTICITY TOKEN"
+      # raise "INVALID AUTHENTICITY TOKEN"
     end
   end
 

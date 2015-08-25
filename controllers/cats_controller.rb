@@ -19,7 +19,6 @@ class CatsController < ControllerBase
   end
 
   def show
-    p params
     @cat = Cat.find(params["id"].to_i)
     render :show
   end
