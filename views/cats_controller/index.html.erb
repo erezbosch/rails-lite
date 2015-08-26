@@ -1,3 +1,6 @@
+<% if flash['messages'] %>
+  <p><%= flash['messages'] %></p>
+<% end %>
 <h1>ALL THE CATS</h1>
 <% @cats.each do |cat| %>
   <p>

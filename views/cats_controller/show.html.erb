@@ -1,8 +1,13 @@
-<h1><%= @cat.name %><h2>
-<% if @cat.owner %>
-  <%= " is owned by #{@cat.owner.fname} #{@cat.owner.lname}" %>
-<% else %>
-  is a filthy stray! <a href="/cats/<%= @cat.id %>/edit">Adopt</a>
+<% if flash['messages'] %>
+  <p><%= flash['messages'] %></p>
 <% end %>
-<br>
-<a href="/cats">Back to Index</a>
+<h1><%= @cat.name %></h1>
+<h2>
+  <% if @cat.owner %>
+    <%= " is owned by #{@cat.owner.fname} #{@cat.owner.lname}" %>
+  <% else %>
+    is a filthy stray! <a href="/cats/<%= @cat.id %>/edit">Adopt</a>
+  <% end %>
+  <br>
+  <a href="/cats">Back to Index</a>
+</h2>

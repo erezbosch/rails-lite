@@ -5,6 +5,7 @@ class CatsController < ControllerBase
   def create
     @cat = Cat.new(cat_params)
     @cat.save
+    flash['messages'] = "Created cat #{@cat.name}!"
     redirect_to("/cats")
   end
 
@@ -34,7 +35,8 @@ class CatsController < ControllerBase
       @cat.send("#{key}=", cat_params[key])
     end
     @cat.update
-    redirect_to("/cats/#{@cat.id}")
+    flash.now['messages'] = "Updated cat #{@cat.name}!"
+    render :show
   end
 
   private
