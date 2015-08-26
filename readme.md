@@ -1,4 +1,6 @@
-## Rails-style web server program
+## Rails Lite
+A Ruby web server application
+
 ### Features
 * Model classes which inherit from the SQLObject class can have associations and
 are searchable &mdash; the `where` function is lazily evaluated and stackable.
@@ -13,17 +15,17 @@ authenticate users.
 
 ### How to Use
 * Write a .sql file containing the details of your database.
-* Change the values of the DB_FILE and SQL_FILE constants in
+* Change the values of the `DB_FILE` and `SQL_FILE` constants in
 `db_logic/db_connection` to reflect the name of your .sql file.
-* Write model classes that inherit from SQLObject (you'll have to `require` or
-`require_relative` `db_logic/sql_object`). You can write associations as in
+* Write model classes that inherit from `SQLObject` (you'll have to `require` or
+`require_relative` `db_logic/sql_object`). You can write associations like in
 Rails, just call `finalize!` at the end of the class definition.
 * Write controller classes that inherit from ControllerBase (you'll have to
 `require` or `require_relative` `controller_logic/controller_base` as well as
 the appropriate model class).
-* Write a script that creates a router with the appropriate routes and requires
-your model and controller files, then starts up a WEBRick server. An example is
-`bin/integration_test_server.rb`.
+* Write a script that requires your model and controller files and creates a
+router with the appropriate routes, then starts up a WEBRick server. An example
+is `bin/integration_test_server.rb`.
 * Write `.html.erb` templates in a `views` folder as appropriate.
 * If you write a form, make sure to provide a `form_authenticity_token`.
 
