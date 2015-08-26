@@ -30,10 +30,14 @@ your model and controller files, then starts up a WEBRick server. An example is 
 
 #### controller_logic
 * ControllerBase class
-* Classes ControllerBase uses (Flash, Params, Route, Router, Session)
+* Flash, Params, Session classes
+* Route and Router classes
 
 #### db_logic
-* SQLObject and database access classes (ActiveRecord Lite)
+* ActiveRecord Lite
+  * SQLObject class
+  * DBConnection class
+  * Searchable and Associatable modules (included by SQLObject)
 
 #### controllers, models, views
 * Files for the integration example
