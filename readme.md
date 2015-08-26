@@ -22,7 +22,8 @@ Rails, just call `finalize!` at the end of the class definition.
 `require` or `require_relative` `controller_logic/controller_base` as well as
 the appropriate model class).
 * Write a script that creates a router with the appropriate routes and requires
-your model and controller files, then starts up a WEBRick server. An example is `bin/integration_test_server.rb`.
+your model and controller files, then starts up a WEBRick server. An example is
+`bin/integration_test_server.rb`.
 * Write `.html.erb` templates in a `views` folder as appropriate.
 * If you write a form, make sure to provide a `form_authenticity_token`.
 

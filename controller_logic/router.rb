@@ -43,8 +43,7 @@ class Router
     instance_eval &proc
   end
 
-  # make each of these methods that
-  # when called add route
+  # make each of these methods that add route when called
   [:get, :post, :put, :delete].each do |http_method|
     define_method(http_method) do |pattern, controller_class, action_name|
       add_route(pattern, http_method, controller_class, action_name)

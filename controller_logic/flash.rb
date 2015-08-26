@@ -29,33 +29,18 @@ class Flash
   end
 
   def now
-    @flash_now ||= FlashNow.new
+    @flash_now ||= {}
   end
 
   def store_session(res)
     @flash_now = nil
-    @flash = @flash.delete_if { |k, v| @delete.include?(k) }
+    @flash = @flash.delete_if { |key, value| @delete.include?(key) }
     @delete = @flash.keys
-
     [
       WEBrick::Cookie.new("flash", @flash.to_json),
       WEBrick::Cookie.new("delete", @delete.to_json)
     ].each do |cookie|
       res.cookies << cookie
     end
-  end
-end
-
-class FlashNow
-  def initialize(hash = {})
-    @flash_now = hash
-  end
-
-  def [](key)
-    @flash_now[key]
-  end
-
-  def []=(key, val)
-    @flash_now[key] = val
   end
 end
