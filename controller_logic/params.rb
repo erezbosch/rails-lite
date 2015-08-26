@@ -33,8 +33,7 @@ class Params
   def parse_www_encoded_form(www_encoded_form)
     query_array = URI::decode_www_form(www_encoded_form)
     query_hash = Hash.new
-    query_array.each do |pair|
-      key, value = pair
+    query_array.each do |(key, value)|
       keys = parse_key(key)
       current_hash = query_hash
       keys[0..-2].each do |key|

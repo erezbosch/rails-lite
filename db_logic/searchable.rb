@@ -33,8 +33,8 @@ module Searchable
   def method_missing(method_name, *args)
     if method_name[0..7] == "find_by_"
       cols = method_name[8..-1].split("_and_")
-      raise "You can't search by that" unless check_ivar?(cols)
-      find_by(make_search_str(cols,args))
+      raise "Illegal search parameter" unless check_ivar?(cols)
+      find_by(make_search_str(cols, args))
     end
   end
 
@@ -51,7 +51,7 @@ module Searchable
         search_arr << "#{cols[idx]} = '#{values[idx]}'"
       end
     end
-    search_str = search_arr.join(" AND ")
+    search_arr.join(" AND ")
   end
 
   class Relation < BasicObject

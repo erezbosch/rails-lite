@@ -8,7 +8,8 @@ are searchable &mdash; the `where` function is lazily evaluated and stackable.
 * Router's `draw` method will create routes as specified.
 * `protect_from_forgery` and `form_authenticity_token` methods can be used to
 authenticate users.
-* Simple example project which can be run using `ruby bin/integration_test_server.rb` and then accessed at localhost:3000
+* Simple example project which can be run using
+`ruby bin/integration_test_server.rb` and then accessed at localhost:3000
 
 ### How to Use
 * Write a .sql file containing the details of your database.
