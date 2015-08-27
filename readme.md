@@ -1,5 +1,5 @@
-## Rails Lite
-A Ruby web server application
+## Soft Server
+A Ruby web server application inspired by Rails
 
 ### Features
 * Model classes which inherit from the SQLObject class can have associations and
