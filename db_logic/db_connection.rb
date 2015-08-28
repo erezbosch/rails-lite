@@ -21,12 +21,14 @@ class DBConnection
     ]
 
     commands.each { |command| `#{command}` }
-    DBConnection.open(DB_FILE)
+    open(DB_FILE)
   end
 
   def self.instance
-    # reset if @db.nil?
-    DBConnection.open(DB_FILE) if @db.nil?
+    if @db.nil?
+      f = File.read(DB_FILE)
+      f.length == 0 ? reset : open(DB_FILE)
+    end
     @db
   end
 

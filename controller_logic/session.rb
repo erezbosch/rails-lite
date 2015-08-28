@@ -4,13 +4,8 @@ require 'webrick'
 class Session
   # find the cookie for this app; deserialize the cookie into a hash
   def initialize(req)
-    req.cookies.reverse.each do |cookie|
-      if cookie.name == "_rails_lite_app"
-        @session = cookie.value == "" ? {} : JSON.parse(cookie.value)
-        return
-      end
-    end
-    @session = {}
+    cookie = req.cookies.find { |cookie| cookie.name == "_rails_lite_app" }
+    @session = (!cookie || cookie.value == "") ? {} : JSON.parse(cookie.value)
   end
 
   def [](key)

@@ -13,6 +13,7 @@ router.draw do
   get Regexp.new("^/cats/(?<id>\\d+)$"), CatsController, :show
   get Regexp.new("^/cats/(?<id>\\d+)/edit$"), CatsController, :edit
   post Regexp.new("^/cats/(?<id>\\d+)$"), CatsController, :update
+  get Regexp.new("^/cats/(?<id>\\d+)/destroy$"), CatsController, :destroy
 end
 
 server = WEBrick::HTTPServer.new(Port: 3000)

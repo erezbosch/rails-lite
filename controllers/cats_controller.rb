@@ -6,7 +6,7 @@ class CatsController < ControllerBase
     @cat = Cat.new(cat_params)
     @cat.save
     flash['messages'] = "Created cat #{@cat.name}!"
-    redirect_to("/cats")
+    redirect_to "/cats"
   end
 
   def index
@@ -37,6 +37,13 @@ class CatsController < ControllerBase
     @cat.update
     flash.now['messages'] = "Updated cat #{@cat.name}!"
     render :show
+  end
+
+  def destroy
+    @cat = Cat.find(params["id"].to_i)
+    @cat.destroy
+    flash.now['messages'] = "Deleted cat #{@cat.name}!"
+    redirect_to "/cats"
   end
 
   private
