@@ -5,7 +5,7 @@ class CatsController < ControllerBase
   def create
     @cat = Cat.new(cat_params)
     @cat.save
-    flash['messages'] = "Created cat #{@cat.name}!"
+    flash['messages'] = "Created cat #{@cat.name}! This is a flash message!"
     redirect_to "/cats"
   end
 
@@ -35,14 +35,14 @@ class CatsController < ControllerBase
       @cat.send("#{key}=", cat_params[key])
     end
     @cat.update
-    flash.now['messages'] = "Updated cat #{@cat.name}!"
+    flash.now['messages'] = "Updated cat #{@cat.name}! This is a flash.now message! (The cat show page was just rendered, not redirected to)"
     render :show
   end
 
   def destroy
     @cat = Cat.find(params["id"].to_i)
     @cat.destroy
-    flash.now['messages'] = "Deleted cat #{@cat.name}!"
+    flash['messages'] = "Deleted cat #{@cat.name}! This is a flash message!"
     redirect_to "/cats"
   end
 

@@ -8,7 +8,7 @@
     <% if cat.owner %>
       <%= " is owned by #{cat.owner.fname} #{cat.owner.lname}" %>
     <% else %>
-      is a filthy stray!
+      is a filthy stray! <a href="/cats/<%= cat.id %>/edit">Adopt</a>
     <% end %>
     <a href="/cats/<%= cat.id %>/destroy"> Delete</a>
   </p>

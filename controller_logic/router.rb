@@ -19,7 +19,7 @@ class Route
       hash[key] = match_data[key]
     end
     controller = controller_class.new(req, res, route_params)
-    controller.protect_from_forgery unless self.http_method == :get
+    controller.protect_from_forgery unless http_method == :get
     controller.invoke_action(action_name)
   end
 end

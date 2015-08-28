@@ -46,3 +46,8 @@ is `bin/integration_test_server.rb`.
 
 #### controllers, models, views
 * Files for the integration example
+
+### ToDos
+- [ ] Model Validations
+- [ ] Support for PUT/DELETE requests
+- [ ] Don't make people write horrible regexes themselves

@@ -7,10 +7,8 @@ class Params
   # 3. query string
   def initialize(req, route_params = {})
     @params = route_params
-    @params.merge!(parse_www_encoded_form(req.body)) unless req.body.nil?
-    unless req.query_string.nil?
-      @params.merge!(parse_www_encoded_form(req.query_string))
-    end
+    @params.merge!(parse_www_encoded_form(req.body)) if req.body
+    @params.merge!(parse_www_encoded_form(req.query_string)) if req.query_string
   end
 
   def [](key)
