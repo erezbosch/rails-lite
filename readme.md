@@ -50,4 +50,4 @@ is `bin/integration_test_server.rb`.
 ### ToDos
 - [ ] Model Validations
 - [ ] Support for PUT/DELETE requests
-- [ ] Don't make people write horrible regexes themselves
+- [x] Don't make people write horrible regexes themselves
