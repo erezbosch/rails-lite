@@ -5,7 +5,7 @@ class CatsController < ControllerBase
   def create
     @cat = Cat.new(cat_params)
     @cat.save
-    flash['messages'] = "Created cat #{@cat.name}! This is a flash message!"
+    flash['messages'] = "Created cat #{@cat.name}! Then redirected you to the cats index! This is a flash message!"
     redirect_to "/cats"
   end
 
@@ -42,7 +42,7 @@ class CatsController < ControllerBase
   def destroy
     @cat = Cat.find(params["id"].to_i)
     @cat.destroy
-    flash['messages'] = "Deleted cat #{@cat.name}! This is a flash message!"
+    flash['messages'] = "Deleted cat #{@cat.name}! Then redirected you to the cats index! This is a flash message!"
     redirect_to "/cats"
   end
 

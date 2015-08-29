@@ -1,3 +1,7 @@
+require 'active_support'
+require 'active_support/core_ext'
+require 'byebug'
+
 class Route
   attr_reader :pattern, :http_method, :controller_class, :action_name
 
@@ -41,6 +45,41 @@ class Router
   # proc is { get url, class, action etc.... }
   def draw(&proc)
     instance_eval &proc
+  end
+
+  def resources(things, options = {})
+    defaults = [:index, :show, :update, :create, :destroy, :edit, :new]
+    if options[:only]
+      routes = options[:only]
+    elsif options[:except]
+      routes = defaults - options[:except]
+    else
+      routes = defaults
+    end
+    ctrlr = "#{things.capitalize}Controller".constantize
+    draw do
+      if routes.include?(:index)
+        get Regexp.new("^/#{things}$"), ctrlr, :index
+      end
+      if routes.include?(:new)
+        get Regexp.new("^/#{things}/new$"), ctrlr, :new
+      end
+      if routes.include?(:create)
+        post Regexp.new("^/#{things}$"), ctrlr, :create
+      end
+      if routes.include?(:show)
+        get Regexp.new("^/#{things}/(?<id>\\d+)$"), ctrlr, :show
+      end
+      if routes.include?(:edit)
+        get Regexp.new("^/#{things}/(?<id>\\d+)/edit$"), ctrlr, :edit
+      end
+      if routes.include?(:update)
+        post Regexp.new("^/#{things}/(?<id>\\d+)$"), ctrlr, :update
+      end
+      if routes.include?(:destroy)
+        get Regexp.new("^/#{things}/(?<id>\\d+)/destroy$"), ctrlr, :destroy
+      end
+    end
   end
 
   # make each of these methods that add route when called

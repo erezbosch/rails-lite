@@ -11,12 +11,11 @@
     <select name="cat[owner_id]">
       <% Human.all.each do |human| %>
         <option value=<%= human.id %>
-          <%= "selected" if human.id == @cat.owner.id if @cat.owner %>>
+          <%= "selected" if human.id == @cat.owner_id %>>
           <%= human.fname %>
         </option>
       <% end %>
-      <option value=<%= nil %>
-        <%= "selected" unless @cat.owner %>>
+      <option value=0 <%= "selected" if !@cat.owner_id || @cat.owner_id == 0 %>>
         None
       </option>
     </select>
