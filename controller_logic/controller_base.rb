@@ -69,12 +69,15 @@ class ControllerBase
   def form_authenticity_token
     token = SecureRandom.urlsafe_base64
     session["authenticity_token"] = token
+    puts "SET TOKEN TO #{token}"
+    p session
     token
   end
 
   # ensure that there is an authenticity token stored in cookies AND it is
   # the same as the one passed in params
   def protect_from_forgery
+    p params, session
     params_token = params["authenticity_token"]
     session_token = session["authenticity_token"]
     unless session_token && params_token == session_token

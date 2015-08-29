@@ -2,6 +2,7 @@
   <p><%= flash['messages'] %></p>
 <% end %>
 <h1>ALL THE CATS</h1>
+<% auth_token_value = form_authenticity_token %>
 <% @cats.each do |cat| %>
   <p>
     <a href="/cats/<%= cat.id %>"><%= cat.name %></a>
@@ -10,7 +11,15 @@
     <% else %>
       is a filthy stray! <a href="/cats/<%= cat.id %>/edit">Adopt</a>
     <% end %>
-    <a href="/cats/<%= cat.id %>/destroy"> Delete</a>
+    <form action="/cats/<%= cat.id %>" method="post">
+      <input type="hidden"
+             name="authenticity_token"
+             value="<%= auth_token_value %>">
+      <input type="hidden"
+             name="_method"
+             value="delete">
+      <input type="submit" value="Delete">
+    </form>
   </p>
 <% end %>
 <a href="/cats/new">New cat!</a>

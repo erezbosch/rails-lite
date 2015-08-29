@@ -12,7 +12,15 @@ class Route
 
   # checks if pattern matches path and method matches request method
   def matches?(req)
-    req.request_method.downcase.to_sym == http_method && pattern =~ req.path
+    hidden_method_idx = req.body ? req.body.index('_method=') : nil
+    if hidden_method_idx
+      end_idx = req.body[hidden_method_idx..-1].index('&')
+      end_idx ? end_idx += hidden_method_idx : end_idx = req.body.length
+      target_method = req.body[hidden_method_idx + 8...end_idx]
+    else
+      target_method = req.request_method
+    end
+    target_method.downcase.to_sym == http_method && pattern =~ req.path
   end
 
   # use pattern to pull out route params (save for later?)
@@ -23,7 +31,7 @@ class Route
       hash[key] = match_data[key]
     end
     controller = controller_class.new(req, res, route_params)
-    controller.protect_from_forgery unless http_method == :get
+    controller.protect_from_forgery unless [:get, :delete].include? http_method
     controller.invoke_action(action_name)
   end
 end
@@ -74,10 +82,10 @@ class Router
         get Regexp.new("^/#{things}/(?<id>\\d+)/edit$"), ctrlr, :edit
       end
       if routes.include?(:update)
-        post Regexp.new("^/#{things}/(?<id>\\d+)$"), ctrlr, :update
+        put Regexp.new("^/#{things}/(?<id>\\d+)$"), ctrlr, :update
       end
       if routes.include?(:destroy)
-        get Regexp.new("^/#{things}/(?<id>\\d+)/destroy$"), ctrlr, :destroy
+        delete Regexp.new("^/#{things}/(?<id>\\d+)$"), ctrlr, :destroy
       end
     end
   end
@@ -91,11 +99,7 @@ class Router
 
   # should return the route that matches this request
   def match(req)
-    routes.each do |route|
-      if route.matches?(req)
-        return route
-      end
-    end
+    routes.each { |route| return route if route.matches?(req) }
     nil
   end
 

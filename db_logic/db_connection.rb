@@ -26,7 +26,7 @@ class DBConnection
 
   def self.instance
     if @db.nil?
-      f = File.read(DB_FILE)
+      f = File.exist?(DB_FILE) ? File.read(DB_FILE) : ""
       f.length == 0 ? reset : open(DB_FILE)
     end
     @db
